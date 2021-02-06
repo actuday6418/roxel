@@ -7,8 +7,6 @@ use sfml::graphics::{Color, PrimitiveType, RenderTarget, RenderWindow, Vertex, V
 use sfml::system::Vector2f;
 use sfml::window::{ContextSettings, Event, Key, Style};
 
-//use std::fs::File;
-
 use std::env;
 
 const WIN_H: u32 = 512;
@@ -97,8 +95,6 @@ fn main() {
         let sin = theta.sin();
         let cos = theta.cos();
 
-        //window.clear(Color::BLUE);
-
         while dist < FAR_DIST as f32 {
             let mut pl = Vector2f::new(
                 (-cos * dist as f32 - sin * dist as f32) + origin.0 as f32,
@@ -112,15 +108,15 @@ fn main() {
             let dx: f32 = (pr.x - pl.x) / (WIN_W as f32);
             let dy: f32 = (pr.y - pl.y) / (WIN_W as f32);
 
-            for i in 0..(WIN_W + 1) {
+            for i in 1..(WIN_W+1) {
                 let mut projected_height = (height as f32 - vd.get_height(
-                        &mut ((pl.x + vd.width / 2 as f32) as i32),
-                        &mut ((pl.y + vd.height / 2 as f32) as i32),
+                        &mut ((pl.x) as i32),
+                        &mut ((pl.y) as i32),
                     ))/dist*240f32;
                 if projected_height > WIN_H as f32 {
-                    projected_height = (WIN_H - 1) as f32;
-                } else if projected_height < 0f32 {
-                    projected_height = 0f32;
+                    projected_height = (WIN_H) as f32;
+                } else if projected_height <= 0f32 {
+                    projected_height = 1f32;
                 }
                     draw_vline(
                         &mut vertices,
@@ -128,8 +124,8 @@ fn main() {
                         projected_height as f32-1f32,
                         z_buff[i as usize] as f32,
                         vd.get_color(
-                            &mut ((pl.x + vd.width / 2 as f32) as i32),
-                            &mut ((pl.y + vd.height / 2 as f32) as i32),
+                            &mut ((pl.x) as i32),
+                            &mut ((pl.y) as i32),
                         ),
                 );
                 if projected_height < z_buff[i as usize] as f32 {
