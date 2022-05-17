@@ -1,5 +1,3 @@
-extern crate image;
-
 type HData = image::ImageBuffer<image::Luma<u8>, std::vec::Vec<u8>>;
 type CData = image::ImageBuffer<image::Rgb<u8>, std::vec::Vec<u8>>;
 
@@ -29,7 +27,7 @@ impl VoxelData {
             height_data: hd,
         };
         let (h_width, h_height) = vd.height_data.dimensions();
-        if vd.width != h_width as f32 || vd.height != h_height as f32{
+        if vd.width != h_width as f32 || vd.height != h_height as f32 {
             panic!("Image files have different dimensions!");
         }
         vd
@@ -40,22 +38,22 @@ impl VoxelData {
             *y = y.rem_euclid(self.height as i32);
         }
         if *x < 0 || *x >= self.height as i32 {
-            *x =  x.rem_euclid(self.height as i32);
+            *x = x.rem_euclid(self.height as i32);
         }
         return self.height_data.get_pixel(*x as u32, *y as u32)[0] as f32;
     }
 
-    pub fn get_color(&self, x: &mut i32, y: &mut i32) -> Vec<u8> {
-        if *y <  0 || *y >= self.height as i32 {
+    pub fn get_color(&self, x: &mut i32, y: &mut i32) -> [f32; 3] {
+        if *y < 0 || *y >= self.height as i32 {
             *y = y.rem_euclid(self.height as i32);
         }
-        if *x <  0 || *x >= self.height as i32 {
+        if *x < 0 || *x >= self.height as i32 {
             *x = x.rem_euclid(self.height as i32);
         }
-        return vec![
-            self.color_data.get_pixel(*x as u32, *y as u32)[0],
-            self.color_data.get_pixel(*x as u32, *y as u32)[1],
-            self.color_data.get_pixel(*x as u32, *y as u32)[2],
+        return [
+            self.color_data.get_pixel(*x as u32, *y as u32)[0] as f32 / 256f32,
+            self.color_data.get_pixel(*x as u32, *y as u32)[1] as f32 / 256f32,
+            self.color_data.get_pixel(*x as u32, *y as u32)[2] as f32 / 256f32,
         ];
     }
 }

@@ -2,10 +2,20 @@
 name = "roxel"
 version = "0.1.0"
 authors = ["actuday6418 <actuday6418@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-sfml="0.15.1"
-image="0.23.11"
+#sfml = "*"
+#image = "*"cfg-if = "1"
+winit = "0.26"
+env_logger = "0.9"
+log = "0.4"
+wgpu = "0.12"
+image = "*"
+pollster = "0.2"
+bytemuck = { version = "1.4", features = ["derive"] }
+# wgpu = "0.12"
+# pollster = "*"
+# winit = "0.26"
