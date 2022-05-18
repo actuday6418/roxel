@@ -26,8 +26,6 @@ fn main() {
     let mut height: i32 = 100;
     let mut origin: (i32, i32) = (0, 0);
     let mut z_buff: Vec<u32> = Vec::new();
-    let mut dist = 1f32;
-    let mut dz = 1f32;
     env_logger::init();
     let event_loop = EventLoop::new();
     let window = WindowBuilder::new().build(&event_loop).unwrap();
@@ -92,6 +90,8 @@ fn main() {
                 state.num_vertices = 0;
                 let sin = theta.sin();
                 let cos = theta.cos();
+                let mut dist = 1f32;
+                let mut dz = 1f32;
 
                 while dist < FAR_DIST as f32 {
                     let mut pl = Vector2f {
@@ -133,7 +133,6 @@ fn main() {
                     dist += dz;
                     dz += 0.2;
                 }
-                println!("{}", state.num_vertices);
                 state
                     .queue
                     .write_buffer(&state.vertex_buffer, 0, bytemuck::cast_slice(&vertices));
