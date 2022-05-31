@@ -1,3 +1,5 @@
+extern crate image;
+
 type HData = image::ImageBuffer<image::Luma<u8>, std::vec::Vec<u8>>;
 type CData = image::ImageBuffer<image::Rgb<u8>, std::vec::Vec<u8>>;
 
@@ -51,9 +53,9 @@ impl VoxelData {
             *x = x.rem_euclid(self.height as i32);
         }
         return [
-            self.color_data.get_pixel(*x as u32, *y as u32)[0] as f32 / 256f32,
-            self.color_data.get_pixel(*x as u32, *y as u32)[1] as f32 / 256f32,
-            self.color_data.get_pixel(*x as u32, *y as u32)[2] as f32 / 256f32,
+            self.color_data.get_pixel(*x as u32, *y as u32)[0] as f32 / 255f32,
+            self.color_data.get_pixel(*x as u32, *y as u32)[1] as f32 / 255f32,
+            self.color_data.get_pixel(*x as u32, *y as u32)[2] as f32 / 255f32,
         ];
     }
 }
